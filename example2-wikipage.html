@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Computing - Wikipedia</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Custom Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .hover-scale {
+      transition: transform 0.2s ease-in-out;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+    /* Dark Mode */
+    .dark-mode {
+      background-color: #1a202c;
+      color: #e2e8f0;
+    }
+    .dark-mode .bg-white {
+      background-color: #2d3748;
+      color: #e2e8f0;
+    }
+    .dark-mode .text-gray-700 {
+      color: #cbd5e0;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 text-gray-900">
+  <!-- Skip Link -->
+  <a href="#mainContent" class="skip-link">Skip to Content</a>
+
+  <!-- Accessibility Button -->
+  <div class="fixed bottom-4 right-4 z-50">
+    <button id="accessibilityButton" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform transform hover:scale-110" aria-label="Accessibility Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+      </svg>
+    </button>
+    <div id="accessibilityMenu" class="hidden absolute bottom-16 right-0 bg-white p-4 rounded-lg shadow-md space-y-2 fade-in">
+      <button onclick="toggleHighContrast()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle High Contrast">High Contrast</button>
+      <button onclick="toggleLargeText()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle Large Text">Large Text</button>
+      <button onclick="toggleDarkMode()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle Dark Mode">Dark Mode</button>
+      <button onclick="readAloud()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Read Aloud">Read Aloud</button>
+      <a href="#mainContent" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Skip to Content">Skip to Content</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="mainContent" class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-blue-600 mb-2">Quantum Computing</h1>
+      <p class="text-gray-700">From Wikipedia, the free encyclopedia</p>
+    </header>
+
+    <!-- Abstract Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="abstractHeading">
+      <h2 id="abstractHeading" class="text-3xl font-bold text-blue-600 mb-4">Abstract</h2>
+      <p class="text-gray-700 mb-4">A quantum computer is a computer that exploits quantum mechanical phenomena. On small scales, physical matter exhibits properties of both particles and waves, and quantum computing leverages this behavior using specialized hardware. Classical physics cannot explain the operation of these quantum devices, and a scalable quantum computer could perform some calculations exponentially faster than any modern "classical" computer. Theoretically, a large-scale quantum computer could break some widely used encryption schemes and aid physicists in performing physical simulations; however, the current state of the art is largely experimental and impractical, with several obstacles to useful applications.</p>
+      <a href="#" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors" aria-label="Read More">Read More</a>
+    </section>
+
+    <!-- History Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="historyHeading">
+      <h2 id="historyHeading" class="text-3xl font-bold text-blue-600 mb-4">History</h2>
+      <p class="text-gray-700 mb-4">For many years, the fields of quantum mechanics and computer science formed distinct academic communities. Modern quantum theory developed in the 1920s to explain perplexing physical phenomena observed at atomic scales, and digital computers emerged in the following decades to replace human computers for tedious calculations. Both disciplines had practical applications during World War II; computers played a major role in wartime cryptography, and quantum physics was essential for nuclear physics used in the Manhattan Project.</p>
+      <p class="text-gray-700 mb-4">As physicists applied quantum mechanical models to computational problems and swapped digital bits for qubits, the fields of quantum mechanics and computer science began to converge. In 1980, Paul Benioff introduced the quantum Turing machine, which uses quantum theory to describe a simplified computer. When digital computers became faster, physicists faced an exponential increase in overhead when simulating quantum dynamics, prompting Yuri Manin and Richard Feynman to independently suggest that hardware based on quantum phenomena might be more efficient for computer simulation.</p>
+    </section>
+
+    <!-- Quantum Information Processing Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="quantumInfoHeading">
+      <h2 id="quantumInfoHeading" class="text-3xl font-bold text-blue-600 mb-4">Quantum Information Processing</h2>
+      <p class="text-gray-700 mb-4">Computer engineers typically describe a modern computer's operation in terms of classical electrodynamics. Within these "classical" computers, some components (such as semiconductors and random number generators) may rely on quantum behavior, but these components are not isolated from their environment, so any quantum information quickly decoheres. While programmers may depend on probability theory when designing a randomized algorithm, quantum mechanical notions like superposition and interference are largely irrelevant for program analysis.</p>
+      <p class="text-gray-700 mb-4">Quantum programs, in contrast, rely on precise control of coherent quantum systems. Physicists describe these systems mathematically using linear algebra. Complex numbers model probability amplitudes, vectors model quantum states, and matrices model the operations that can be performed on these states. Programming a quantum computer is then a matter of composing operations in such a way that the resulting program computes a useful result in theory and is implementable in practice.</p>
+    </section>
+
+    <!-- Potential Applications Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="applicationsHeading">
+      <h2 id="applicationsHeading" class="text-3xl font-bold text-blue-600 mb-4">Potential Applications</h2>
+      <p class="text-gray-700 mb-4">With focus on business management's point of view, the potential applications of quantum computing into four major categories are cybersecurity, data analytics and artificial intelligence, optimization and simulation, and data management and searching. Investment in quantum computing research has increased in the public and private sectors.</p>
+      <p class="text-gray-700 mb-4">Quantum computing has significant potential applications in the fields of cryptography and cybersecurity. Quantum cryptography, which relies on the principles of quantum mechanics, offers the possibility of secure communication channels that are resistant to eavesdropping. Quantum key distribution (QKD) protocols, such as BB84, enable the secure exchange of cryptographic keys between parties, ensuring the confidentiality and integrity of communication. Moreover, quantum random number generators (QRNGs) can produce high-quality random numbers, which are essential for secure encryption.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-8">
+      <div class="container mx-auto px-4 py-6 text-center">
+        <p class="text-gray-700">Meta © 2024</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Accessibility Menu Toggle
+    const accessibilityButton = document.getElementById('accessibilityButton');
+    const accessibilityMenu = document.getElementById('accessibilityMenu');
+    accessibilityButton.addEventListener('click', () => {
+      accessibilityMenu.classList.toggle('hidden');
+    });
+
+    // High Contrast Toggle
+    function toggleHighContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    // Large Text Toggle
+    function toggleLargeText() {
+      document.body.classList.toggle('large-text');
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Read Aloud Functionality
+    function readAloud() {
+      const content = document.querySelector('main').innerText;
+      const utterance = new SpeechSynthesisUtterance(content);
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
