@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reformat of Meta's Paper: Large Concept Models</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Custom Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .hover-scale {
+      transition: transform 0.2s ease-in-out;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+    /* Parallax Effect */
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    /* Dark Mode */
+    .dark-mode {
+      background-color: #1a202c;
+      color: #e2e8f0;
+    }
+    .dark-mode .bg-white {
+      background-color: #2d3748;
+      color: #e2e8f0;
+    }
+    .dark-mode .text-gray-700 {
+      color: #cbd5e0;
+    }
+    .dark-mode .bg-blue-600 {
+      background-color: #4a5568;
+    }
+    .dark-mode .bg-blue-500 {
+      background-color: #4a5568;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 text-gray-900">
+  <!-- Skip Link -->
+  <a href="#mainContent" class="skip-link">Skip to Content</a>
+
+  <!-- Accessibility Button -->
+  <div class="fixed bottom-4 right-4 z-50">
+    <button id="accessibilityButton" class="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform transform hover:scale-110" aria-label="Accessibility Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+      </svg>
+    </button>
+    <div id="accessibilityMenu" class="hidden absolute bottom-16 right-0 bg-white p-4 rounded-lg shadow-md space-y-2 fade-in">
+      <button onclick="toggleHighContrast()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle High Contrast">High Contrast</button>
+      <button onclick="toggleLargeText()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle Large Text">Large Text</button>
+      <button onclick="toggleDarkMode()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Toggle Dark Mode">Dark Mode</button>
+      <button onclick="readAloud()" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Read Aloud">Read Aloud</button>
+      <a href="#mainContent" class="block w-full text-left hover:bg-gray-100 p-2 rounded transition-colors" aria-label="Skip to Content">Skip to Content</a>
+    </div>
+  </div>
+
+  <!-- Parallax Background -->
+  <div class="parallax bg-cover bg-center h-96 flex items-center justify-center" style="background-image: url('https://via.placeholder.com/1920x600');" aria-label="Parallax Background">
+    <h1 class="text-4xl font-bold text-white bg-black bg-opacity-50 p-4 rounded-lg">Reformat of Meta's Paper</h1>
+  </div>
+
+  <!-- Main Content -->
+  <main id="mainContent" class="container mx-auto px-4 py-8">
+    <!-- Paper Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="abstractHeading">
+      <h2 id="abstractHeading" class="text-3xl font-bold text-blue-600 mb-4">Abstract</h2>
+      <p class="text-gray-700 mb-4">LLMs have revolutionized the field of artificial intelligence and have emerged as the de-facto tool for many tasks. The current established technology of LLMs is to process input and generate output at the token level. This is in sharp contrast to humans who operate at multiple levels of abstraction, well beyond single words, to analyze information and to generate creative content. In this paper, we present an attempt at an architecture which operates on an explicit higher-level semantic representation, which we name a “concept”. Concepts are language- and modality-agnostic and represent a higher level idea or action in a flow. Hence, we build a “Large Concept Model”. In this study, as proof of feasibility, we assume that a concept corresponds to a sentence, and use an existing sentence embedding space, SONAR, which supports up to 200 languages in both text and speech modalities. The Large Concept Model is trained to perform autoregressive sentence prediction in an embedding space. We explore multiple approaches, namely MSE regression, variants of diffusion-based generation, and models operating in a quantized SONAR space. These explorations are performed using 1.6B parameter models and training data in the order of 1.3T tokens. We then scale one architecture to a model size of 7B parameters and training data of about 7.7T tokens. We perform an experimental evaluation on several generative tasks, namely summarization and a new task of summary expansion. Finally, we show that our model exhibits impressive zero-shot generalization performance to many languages, outperforming existing LLMs of the same size. The training code of our models is freely available.</p>
+      <a href="#" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors" aria-label="Download the Paper">Download the Paper</a>
+    </section>
+
+    <!-- Authors Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md mb-8 fade-in hover-scale" aria-labelledby="authorsHeading">
+      <h3 id="authorsHeading" class="text-2xl font-bold text-blue-600 mb-4">Authors</h3>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <li class="text-gray-700">Loic Barrault</li>
+        <li class="text-gray-700">Paul-Ambroise Duquenne</li>
+        <li class="text-gray-700">Maha Elbayad</li>
+        <li class="text-gray-700">Artyom Kozhevnikov</li>
+        <li class="text-gray-700">Belen Alastruey</li>
+        <li class="text-gray-700">Pierre Andrews</li>
+        <li class="text-gray-700">Mariano Coria</li>
+        <li class="text-gray-700">Guillaume Couairon</li>
+        <li class="text-gray-700">Marta R. Costa-jussa</li>
+        <li class="text-gray-700">David Dale</li>
+        <li class="text-gray-700">Hady Elsahar</li>
+        <li class="text-gray-700">Kevin Heffernan</li>
+        <li class="text-gray-700">João Maria Janeiro</li>
+        <li class="text-gray-700">Tuan Tran</li>
+        <li class="text-gray-700">Christophe Ropers</li>
+        <li class="text-gray-700">Eduardo Sánchez</li>
+        <li class="text-gray-700">Robin San Roman</li>
+        <li class="text-gray-700">Alexandre Mourachko</li>
+        <li class="text-gray-700">Safiyyah Saleem</li>
+        <li class="text-gray-700">Holger Schwenk</li>
+      </ul>
+    </section>
+
+    <!-- Related Publications Section -->
+    <section class="bg-white p-8 rounded-lg shadow-md fade-in" aria-labelledby="publicationsHeading">
+      <h3 id="publicationsHeading" class="text-2xl font-bold text-blue-600 mb-4">Related Publications</h3>
+      <div class="space-y-6">
+        <!-- Publication 1 -->
+        <div class="border-l-4 border-blue-600 pl-4 hover-scale transform transition-transform cursor-pointer" onclick="toggleContent('pub1')" tabindex="0" role="button" aria-expanded="false" aria-controls="pub1">
+          <h4 class="text-xl font-semibold text-blue-600">FLAME: Factuality-Aware Alignment for Large Language Models</h4>
+          <p id="pub1" class="text-gray-700 mb-2 hidden" aria-hidden="true">Alignment is a procedure to fine-tune pre-trained large language models (LLMs) to follow natural language instructions and serve as helpful AI assistants. We have observed, however, that the conventional alignment process fails to enhance the factual accuracy of LLMs, and often leads to the generation of more false facts (i.e., hallucination). In this paper, we study how to make the LLM alignment process more factual, by first identifying factors that lead to hallucination in both alignment steps: supervised fine-tuning (SFT) and reinforcement learning (RL). In particular, we find that training the LLM on new or unfamiliar knowledge can encourage hallucination. This makes SFT less factual as it trains on human-labeled data that may be novel to the LLM. Furthermore, reward functions used in standard RL often inadequately capture factuality and favor longer and more detailed responses, which inadvertently promote hallucination. Based on these observations, we propose FactuaLity-aware AlignMEnt, comprised of factuality-aware SFT and factuality-aware RL through direct preference optimization. Experiments show that our proposed FLAME guides LLMs to output more factual responses while maintaining their instruction-following capability.</p>
+          <a href="#" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors" aria-label="Read the Paper">Read the Paper</a>
+        </div>
+
+        <!-- Publication 2 -->
+        <div class="border-l-4 border-blue-600 pl-4 hover-scale transform transition-transform cursor-pointer" onclick="toggleContent('pub2')" tabindex="0" role="button" aria-expanded="false" aria-controls="pub2">
+          <h4 class="text-xl font-semibold text-blue-600">Memory Layers at Scale</h4>
+          <p id="pub2" class="text-gray-700 mb-2 hidden" aria-hidden="true">Memory layers use a trainable key-value lookup mechanism to add extra parameters to a model without increasing FLOPs. Conceptually, sparsely activated memory layers complement compute-heavy dense feed-forward layers, providing dedicated capacity to store and retrieve information cheaply. This work takes memory layers beyond proof-of-concept, proving their utility at contemporary scale. On downstream tasks, language models augmented with our improved memory layer outperform dense models with more than twice the computation budget, as well as mixture-of-expert models when matched for both compute and parameters. We find gains are especially pronounced for factual tasks. We provide a fully parallelizable memory layer implementation, demonstrating scaling laws with up to 128B memory parameters, pretrained to 1 trillion tokens, comparing to base models with up to 8B parameters.</p>
+          <a href="#" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors" aria-label="Read the Paper">Read the Paper</a>
+        </div>
+
+        <!-- Publication 3 -->
+        <div class="border-l-4 border-blue-600 pl-4 hover-scale transform transition-transform cursor-pointer" onclick="toggleContent('pub3')" tabindex="0" role="button" aria-expanded="false" aria-controls="pub3">
+          <h4 class="text-xl font-semibold text-blue-600">Byte Latent Transformer: Patches Scale Better Than Tokens</h4>
+          <p id="pub3" class="text-gray-700 mb-2 hidden" aria-hidden="true">We introduce the Byte Latent Transformer (BLT), a new byte-level LLM architecture that, for the first time, matches tokenization-based LLM performance at scale with significant improvements in inference efficiency and robustness. BLT encodes bytes into dynamically sized patches, which serve as the primary units of computation. Patches are segmented dynamically based on the entropy of the next byte, allocating more compute and model capacity where increased data complexity demands it. We present the first flop controlled scaling study of byte-level models up to 8B parameters with 4T training bytes. Our results demonstrate the feasibility of scaling models trained on raw bytes without a fixed-vocabulary. Both training and inference efficiency improve due to dynamically selecting long patches when data is predictable, along with qualitative improvements on reasoning and long tail generalization. Overall, for fixed inference costs, BLT shows significantly better scaling than tokenization-based models, by simultaneously growing both patch and model size.</p>
+          <a href="#" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors" aria-label="Read the Paper">Read the Paper</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white shadow-md mt-8">
+    <div class="container mx-auto px-4 py-6 text-center">
+      <p class="text-gray-700">Meta © 2024</p>
+    </div>
+  </footer>
+
+  <script>
+    // Accessibility Menu Toggle
+    const accessibilityButton = document.getElementById('accessibilityButton');
+    const accessibilityMenu = document.getElementById('accessibilityMenu');
+    accessibilityButton.addEventListener('click', () => {
+      accessibilityMenu.classList.toggle('hidden');
+    });
+
+    // High Contrast Toggle
+    function toggleHighContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    // Large Text Toggle
+    function toggleLargeText() {
+      document.body.classList.toggle('large-text');
+    }
+
+    // Dark Mode Toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Read Aloud Functionality
+    function readAloud() {
+      const content = document.querySelector('main').innerText;
+      const utterance = new SpeechSynthesisUtterance(content);
+      speechSynthesis.speak(utterance);
+    }
+
+    // Toggle Content Visibility
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      const isHidden = content.classList.toggle('hidden');
+      content.setAttribute('aria-hidden', isHidden);
+      content.previousElementSibling.setAttribute('aria-expanded', !isHidden);
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'h') toggleHighContrast();
+      if (e.ctrlKey && e.key === 'l') toggleLargeText();
+      if (e.ctrlKey && e.key === 'd') toggleDarkMode();
+      if (e.ctrlKey && e.key === 'r') readAloud();
+    });
+  </script>
+</body>
+</html>
